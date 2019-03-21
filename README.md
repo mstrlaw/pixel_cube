@@ -1,4 +1,4 @@
-# pixelscube
+# pixelcube
 
 > Pixels Camp 2019 Project
 

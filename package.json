@@ -1,5 +1,5 @@
 {
-  "name": "pixelscube",
+  "name": "pixelcube",
   "version": "0.0.1",
   "author": "Lawrence <lawbraun.almeida@gmail.com>",
   "description": "Pixels Camp 2019 Project",
@@ -19,8 +19,8 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "pixelscube",
-    "appId": "com.pixelscube",
+    "productName": "pixelcube",
+    "appId": "com.pixelcube",
     "directories": {
       "output": "build"
     },
