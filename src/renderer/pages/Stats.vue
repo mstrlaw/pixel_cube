@@ -76,18 +76,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
-
-  body, html{
-    margin: 0;
-    padding: 0;
-  }
-
-  .container{
-    width: 80vw;
-    height: 80vh;
-    margin: 0 auto;
-  }
-</style>

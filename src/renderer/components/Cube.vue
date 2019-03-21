@@ -1,43 +1,17 @@
 <template>
-  <div>
-    <!--a
-      href="#"
-      @click.prevent="change('front')"
-    >1</a>
-    <a
-      href="#"
-      @click.prevent="change('right')"
-    >2</a>
-    <a
-      href="#"
-      @click.prevent="change('back')"
-    >3</a>
-    <a
-      href="#"
-      @click.prevent="change('left')"
-    >4</a>
-    <a
-      href="#"
-      @click.prevent="change('bottom')"
-    >5</a>
-    <a
-      href="#"
-      @click.prevent="change('top')"
-    >6</a-->
-    <div
-      :class="sideClass"
-      class="cube-wrapper"
-    >
-      <figure class="cube">
-        <div
-          v-for="side in sides"
-          :key="side.id"
-          :class="['side', { 'active-side': sideClass === side.class }, side.class]"
-        >
-          <div class="label">{{ side.label }}</div>
-        </div>
-      </figure>
-    </div>
+  <div
+    :class="sideClass"
+    class="cube-wrapper"
+  >
+    <figure class="cube">
+      <div
+        v-for="side in sides"
+        :key="side.id"
+        :class="['side', { 'active-side': sideClass === side.class }, side.class]"
+      >
+        <div class="label">{{ side.label }}</div>
+      </div>
+    </figure>
   </div>
 </template>
 

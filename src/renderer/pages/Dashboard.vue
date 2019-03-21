@@ -3,16 +3,21 @@
     <Navigation />
     <div class="container">
       <div class="columns">
-        <div class="column">
-          <Cube
-            :current-side="currentSide"
-          />
+        <div class="column left">
+          <Cube :current-side="currentSide" />
         </div>
-        <div class="column">
-          <button
+        <div class="column right">
+          <div class="config-wrapper">
+            <CubeConfigRow
+              v-for="side in cubeConfig"
+              :key="side.id"
+              :data="side"
+            />
+          </div>
+          <!--button
             class="alt"
             @click.prevent="open"
-          >Start</button>
+          >Start</button-->
         </div>
       </div>
 
@@ -22,6 +27,7 @@
 
 <script>
   import Cube from '../components/Cube'
+  import CubeConfigRow from '../components/CubeConfigRow'
   import Navigation from '../components/Navigation'
   import bluetooth from 'node-bluetooth'
 
@@ -29,17 +35,44 @@
     name: 'Dashboard',
     components: {
       Navigation,
-      Cube
+      Cube,
+      CubeConfigRow
     },
     data() {
       return {
         device: null,
-        currentSide: 1
+        interval: null,
+        currentSide: 1,
       }
     },
     mounted() {
-      console.log('mounted component')
       this.device = new bluetooth.DeviceINQ()
+      setTimeout( () => {
+        this.open()
+      }, 1000)
+    },
+    computed: {
+      cubeConfig() {
+        return this.$store.getters.cubeConfig
+      },
+      counter() {
+        return this.$store.getters.getState
+      },
+      isRegistering() {
+        return this.$store.getters.isRegistering
+      },
+    },
+    watch: {
+      isRegistering() {
+        if (this.isRegistering) {
+          this.interval = setInterval( () => {
+            this.$store.dispatch('increaseSideTime', this.currentSide)
+            // console.log(this.currentSide)
+          }, 500)
+        } else {
+          clearInterval(this.interval)
+        }
+      }
     },
     methods: {
       open () {
@@ -56,26 +89,26 @@
       },
       connect(dev) {
         console.log('try to connect..')
-        console.log(dev)
-        bluetooth.connect(dev.address, dev.services[0].channel, (err, connection) => {
+        this.$store.dispatch('setConnStatus', 'connecting')
+        bluetooth
+          .connect(dev.address, dev.services[0].channel, (err, connection) => {
             if(err){
+              this.$store.dispatch('setConnStatus', 'error')
               return console.error(err)
             } else {
+              this.$store.dispatch('setConnStatus', 'connected')
 
-              console.log('connected!')
-              
               connection.on('data', (buffer) => {
                 let receivedSide = buffer.toString().trim()
 
                 if (receivedSide.length > 0) {
-                  this.currentSide = parseInt(receivedSide)
+                  if (this.isRegistering) {
+                    this.currentSide = parseInt(receivedSide)
+                  }
                 }
               })
 
             }
-            // connection.write(new Buffer('Hello!', 'utf-8'), () => {
-            //   console.log("wrote");
-            // });
           })
         
       }
@@ -84,16 +117,49 @@
 </script>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
   body, html{
     margin: 0;
     padding: 0;
+    font-family: 'Open Sans', sans-serif;
   }
 
   .container{
-    width: 80vw;
-    height: 80vh;
     margin: 0 auto;
+    padding-left: 55px;
+    &:before{
+      content: "";
+      position: fixed;
+      width: 100%;
+      height: 120vh;
+      top: 10vh;
+      -webkit-transform: skewY(12deg);
+      transform: skewY(12deg);
+      
+      background-color: #F6F9FC;
+      z-index: -20;
+    }
+  }
+
+  .columns{
+    display: flex;
+    align-items: flex-start;
+    .column{
+      position: relative;
+      width: 50%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      &.left{
+      }
+      &.right{
+      }
+    }
+  }
+
+  .config-wrapper{
+    display: block;
+    width: 80%;
   }
 </style>
