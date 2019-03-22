@@ -1,27 +1,23 @@
 <template>
   <div id="dashboard">
-    <Navigation />
-    <div class="container">
-      <div class="columns">
-        <div class="column left">
-          <Cube :current-side="currentSide" />
-        </div>
-        <div class="column right">
-          <div class="config-wrapper">
-            <CubeConfigRow
-              v-for="side in cubeConfig"
-              :key="side.id"
-              :data="side"
-              :active-side="currentSide"
-            />
-          </div>
-          <!--button
-            class="alt"
-            @click.prevent="open"
-          >Start</button-->
+    <div class="columns">
+      <div class="column left">
+        <Cube :current-side="currentSide" />
+      </div>
+      <div class="column right">
+        <!--a
+          href="#"
+          @click.prevent="change"
+        >Change</a-->
+        <div class="config-wrapper">
+          <CubeConfigRow
+            v-for="side in cubeConfig"
+            :key="side.id"
+            :data="side"
+            :active-side="currentSide"
+          />
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -29,13 +25,11 @@
 <script>
   import Cube from '../components/Cube'
   import CubeConfigRow from '../components/CubeConfigRow'
-  import Navigation from '../components/Navigation'
   import bluetooth from 'node-bluetooth'
 
   export default {
     name: 'Dashboard',
     components: {
-      Navigation,
       Cube,
       CubeConfigRow
     },
@@ -44,9 +38,11 @@
         device: null,
         interval: null,
         currentSide: 1,
+        localConnection: null
       }
     },
-    mounted() {
+    created() {
+      console.log('created!')
       this.device = new bluetooth.DeviceINQ()
       setTimeout( () => {
         this.open()
@@ -73,6 +69,9 @@
         } else {
           clearInterval(this.interval)
         }
+      },
+      currentSide() {
+        this.$store.dispatch('setBodySide', this.currentSide)
       }
     },
     methods: {
@@ -88,6 +87,10 @@
         })
         // this.$electron.shell.openExternal(link)
       },
+      change() {
+        this.currentSide = Math.floor(Math.random() * 6) + 1
+        this.$store.dispatch('setBodySide', this.currentSide)
+      },
       connect(dev) {
         console.log('try to connect..')
         this.$store.dispatch('setConnStatus', 'connecting')
@@ -99,18 +102,22 @@
             } else {
               this.$store.dispatch('setConnStatus', 'connected')
 
+              connection.write(new Buffer('k', 'utf-8'), (data, buffer) => {
+                console.log('Cube: connected state')
+              })
+
               connection.write(new Buffer('s', 'utf-8'), (data, buffer) => {
-                console.log('wrote')
+                console.log('Cube: get side')
               })
 
               connection.on('data', (buffer) => {
                 let receivedSide = buffer.toString().trim()
 
                 if (receivedSide.length > 0) {
-                  if (this.isRegistering) {
-                    console.log('change side')
-                    this.currentSide = parseInt(receivedSide)
-                  }
+                  console.log('change side')
+                  this.currentSide = parseInt(receivedSide)
+                  // if (this.isRegistering) {
+                  // }
                 }
               })
 
@@ -131,73 +138,21 @@
     font-family: 'Open Sans', sans-serif;
   }
 
-  .container{
-    margin: 0 auto;
-    padding-left: 55px;
-    &:before{
-      content: "";
-      position: fixed;
-      width: 100%;
-      height: 120vh;
-      top: 10vh;
-      -webkit-transform: skewY(12deg);
-      transform: skewY(12deg);
-      
-      background-color: #F6F9FC;
-      z-index: -20;
-      transition: background .5s;
-    }
-
-    &.side-1{
-      &:before{
-        background: rgba(76, 175, 80, .2); //#4CAF50; // Green
-        transition: background .5s;
-      }
-    }
-    &.side-2{
-      &:before{
-        background: rgba(244, 67, 54, .2); //#F44336; // Red
-        transition: background .5s;
-      }
-    }
-    &.side-3{
-      &:before{
-        background: rgba(255, 235, 59, .2); //#FFEB3B; // Yellow
-        transition: background .5s;
-      }
-    }
-    &.side-4{
-      &:before{
-        background: rgba(255, 152, 0, .2); //#FF9800; // Orange
-        transition: background .5s;
-      }
-    }
-    &.side-5{
-      &:before{
-        background: rgba(33, 150, 243, .2); //#2196F3; // Blue
-        transition: background .5s;
-      }
-    }
-    &.side-6{
-      &:before{
-        background: rgba(103, 58, 183, .2); //#673AB7; // Purple
-        transition: background .5s;
-      }
-    }
-  }
-
   .columns{
     display: flex;
     align-items: flex-start;
     .column{
       position: relative;
-      width: 50%;
+      width: 100%;
       height: 100vh;
       display: flex;
       align-items: center;
-      &.left{
+      &.left, &.right{
+        width: 50%;
       }
-      &.right{
+      &.full{
+        max-width: 80%;
+        margin: 0 auto;
       }
     }
   }

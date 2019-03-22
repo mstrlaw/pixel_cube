@@ -7,12 +7,12 @@
       >
         <Cube />
       </router-link>
-      <router-link
+      <!--router-link
         to="/stats"
         class="nav-link"
       >
         <ChartLine />
-      </router-link>
+      </router-link-->
       <router-link
         to="/settings"
         class="nav-link"
@@ -40,6 +40,7 @@
 
 <style lang="scss">
   .nav-wrapper{
+    -webkit-app-region: drag;
     position: fixed;
     top: 0;
     height: 100vh;

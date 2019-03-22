@@ -90,11 +90,6 @@
 
         }
       }
-    },
-    methods: {
-      change(side){
-        this.sideClass = side
-      }
     }
   }
 </script>
@@ -109,7 +104,7 @@
     margin: 60px auto;
     -webkit-perspective: 1100px;
     -webkit-perspective-origin: -50% -50%;
-    // float: left;
+    
 
     &.front {
       .cube {
@@ -166,16 +161,16 @@
         justify-content: space-around;
         width: 300px;
         height: 300px;
-        border: 1px solid #777;
-        background: rgba(246, 249, 252, 1);
-        transition: background 1s;
+        border: 8px solid #607D8B;
+        background: transparent;
+        border-radius: 10px;
+        transition: background .5s;
 
         .label {
           color: rgba(0, 0, 0, .1);
           font-size: 8em;
           text-shadow: 0 0px 0px rgba(0, 0, 0, 0);
           padding: 0 50px;
-          background: rgba(234, 40, 46, 0);
           border-radius: 50%;
           transition: text-shadow .5s, color .5s, background .5s;
         }
@@ -210,22 +205,22 @@
         }
 
         &.active-side{
-          transition: background 1s;
+          transition: background .5s;
 
           &.front{
             background: rgba(76, 175, 80, .8); //#4CAF50; // Green
           }
           &.right{
-            background: rgba(244, 67, 54, .8); //#F44336; // Red
+            background: rgba(33, 150, 243, .8); //#2196F3; // Blue
           }
           &.left{
-            background: rgba(255, 152, 0, .8); //#FF9800; // Orange
-          }
-          &.top{
             background: rgba(103, 58, 183, .8); //#673AB7; // Purple
           }
+          &.top{
+            background: rgba(0, 229, 255, .8); //Cyan
+          }
           &.bottom{
-            background: rgba(33, 150, 243, .8); //#2196F3; // Blue
+            background: rgba(244, 67, 54, .8); //#F44336; // Red
           }
           &.back{
             background: rgba(255, 235, 59, .8); //#FFEB3B; // Yellow
@@ -233,7 +228,6 @@
 
           .label {
             color: rgba(255, 255, 255, 1);
-            // background: rgba(234, 40, 46, 1);
             text-shadow:  0 3px 10px rgba(0, 0, 0, .4);
             transition: text-shadow 1.5s, color .5s, background .5s;
           }

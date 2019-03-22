@@ -12,6 +12,7 @@
         type="text"
         v-model="locaValue"
         class="label"
+        placeholder="No label"
         @focus="showSave"
         @blur="hideSave"
       >
@@ -102,12 +103,14 @@
 
     &.side-1{
       .number{
+        color: #BBB;
         background: rgba(76, 175, 80, .2); //#4CAF50; // Green
       }
     }
     &.side-2{
       .number{
-        background: rgba(244, 67, 54, .2); //#F44336; // Red
+        background: rgba(33, 150, 243, .2); //#2196F3; // Blue
+        
       }
     }
     &.side-3{
@@ -117,22 +120,23 @@
     }
     &.side-4{
       .number{
-        background: rgba(255, 152, 0, .2); //#FF9800; // Orange
+        background: rgba(103, 58, 183, .2); //#673AB7; // Purple
       }
     }
     &.side-5{
       .number{
-        background: rgba(33, 150, 243, .2); //#2196F3; // Blue
+        background: rgba(244, 67, 54, .2); //#F44336; // Red
       }
     }
     &.side-6{
       .number{
-        background: rgba(103, 58, 183, .2); //#673AB7; // Purple
+        background: rgba(0, 229, 255, .2); //Cyan
       }
     }
 
     &.active{
       .number{
+        color: #000;
         transition: background .5s, color .5s;
       }
       &.side-1{
@@ -143,7 +147,8 @@
       }
       &.side-2{
         .number{
-          background: rgba(244, 67, 54, .8); //#F44336; // Red
+          background: rgba(33, 150, 243, .8); //#2196F3; // Blue
+          
         }
       }
       &.side-3{
@@ -153,18 +158,19 @@
       }
       &.side-4{
         .number{
-          background: rgba(255, 152, 0, .8); //#FF9800; // Orange
+          background: rgba(103, 58, 183, .8); //#673AB7; // Purple
+          color: white;
         }
       }
       &.side-5{
         .number{
-          background: rgba(33, 150, 243, .8); //#2196F3; // Blue
+          background: rgba(244, 67, 54, .8); //#F44336; // Red
+          color: white;
         }
       }
       &.side-6{
         .number{
-          background: rgba(103, 58, 183, .8); //#673AB7; // Purple
-          color: white;
+          background: rgba(0, 229, 255, .8); //Cyan
         }
       }
     }
@@ -195,10 +201,11 @@
     }
 
     .number{
+      color: #BBB;
       font-size: 1.5em;
       border-top-left-radius: 4px;
       border-bottom-left-radius: 4px;
-      transition: background .5s;
+      transition: background .5s, color .5s;
     }
 
     .input-wrapper{
@@ -225,6 +232,7 @@
       border-bottom: 1px solid #DDD;
       border-top-right-radius: 4px;
       border-bottom-right-radius: 4px;
+      background: #F6F9FC;
     }
 
     .options{

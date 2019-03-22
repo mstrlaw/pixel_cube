@@ -1,78 +1,57 @@
 <template>
   <div id="app">
+    <Navigation />
+    <ConnectionController />
     <div
-      :class="connStatus"
-      class="status-wrapper"
+      :class="containerClass"
+      class="container"
     >
-      <div
-        v-if="isConnected"
-      >
-        <div
-          class="toggle-wrapper"
-          v-tooltip="{
-            content: `<small>${ isRegistering ? 'Click to stop registering' : 'Click to start registering your time' }</small>`, 
-            placement: 'left',
-            html: true,
-          }"
-        >
-          <input
-            :checked="isRegistering ? true : false"
-            class="toggle toggle-light"
-            id="cb1"
-            type="checkbox"
-            @change="toggleRegistering"
-          />
-          <label
-            class="toggle-btn"
-            for="cb1"
-          />
-        </div>
-      </div>
-      <div class="status">
-        <div
-          v-if="!isConnected && !hasError"
-          class="loader"
-        ><span>loading</span></div>
-        <Alert v-else-if="hasError" />
-        <Check v-else />
-        <span class="label">{{ connStatus }}</span>
-      </div>
+      <router-view></router-view>
     </div>
-    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import Check from 'vue-material-design-icons/Check.vue'
-  import Alert from 'vue-material-design-icons/Alert.vue'
+  import Navigation from './components/Navigation'
+  import ConnectionController from './components/ConnectionController'
 
   export default {
     name: 'PixelCube',
     components: {
-      Check,
-      Alert
-    },
-    mounted() {
-      this.$store.dispatch('setConnStatus', 'idle')
-      this.$store.dispatch('setRegistering', false)
+      Navigation,
+      ConnectionController
     },
     computed: {
-      isRegistering() {
-        return this.$store.getters.isRegistering
-      },
-      connStatus() {
-        return this.$store.getters.connStatus
-      },
-      isConnected() {
-        return this.connStatus === 'connected'
-      },
-      hasError() {
-        return this.connStatus === 'error'
-      }
-    },
-    methods: {
-      toggleRegistering() {
-        this.$store.dispatch('toggleRegistering')
+      containerClass() {
+        let color = 'idle'
+
+        switch (this.$store.getters.bodySide) {
+          case 1:
+            color = 'green'
+            break
+
+          case 2:
+            color = 'blue'
+            break
+
+          case 3:
+            color = 'yellow'
+            break
+
+          case 4:
+            color = 'purple'
+            break
+
+          case 5:
+            color = 'red'
+            break
+
+          case 6:
+            color = 'cyan'
+            break
+
+        }
+        return color
       }
     }
   }
@@ -88,6 +67,61 @@
   $purple:        #673AB7;
   $gray-light:    #B0BEC5;
   $gray-lightest: #ECEFF1;
+
+  .container{
+    margin: 0 auto;
+    padding-left: 55px;
+    &:before{
+      content: "";
+      position: fixed;
+      width: 100%;
+      height: 120vh;
+      top: 10vh;
+      -webkit-transform: skewY(12deg);
+      transform: skewY(12deg);
+      
+      background-color: #F6F9FC;
+      z-index: -20;
+      transition: background .5s;
+    }
+
+    &.green{
+      &:before{
+        background: rgba(76, 175, 80, .1); //#4CAF50; // Green
+        transition: background .5s;
+      }
+    }
+    &.blue{
+      &:before{
+        background: rgba(33, 150, 243, .1); //#2196F3; // Blue
+        transition: background .5s;
+      }
+    }
+    &.purple{
+      &:before{
+        background: rgba(103, 58, 183, .1); //#673AB7; // Purple
+        transition: background .5s;
+      }
+    }
+    &.cyan{
+      &:before{
+        background: rgba(0, 229, 255, .1); //Cyan
+        transition: background .5s;
+      }
+    }
+    &.red{
+      &:before{
+        background: rgba(244, 67, 54, .1); //#F44336; // Red
+        transition: background .5s;
+      }
+    }
+    &.yellow{
+      &:before{
+        background: rgba(255, 235, 59, .1); //#FFEB3B; // Yellow
+        transition: background .5s;
+      }
+    }
+  }
 
   .status-wrapper{
     position: fixed;
@@ -130,14 +164,15 @@
       transition-delay: 1s;
     }
     &.error{
-      transform: translateX(150px);
-      transition: transform .5s;
-      transition-delay: 1s;
-      background: $red;
+      // transform: translateX(150px);
+      // transition: transform .5s;
+      // transition-delay: 1s;
+      // font-weight: bold;
       .material-design-icon{
         line-height: 0;
-        &.check-alert{
+        &.alert-icon{
           color: $red;
+          margin-right: 10px;
         }
       }
     }
@@ -148,7 +183,7 @@
       padding: 10px 15px;
       background: #EEE;
       background: $gray-lightest;
-      max-width: 110px;
+      max-width: 180px;
       border-radius: 4px;
 
       .material-design-icon{
