@@ -12,6 +12,7 @@
               v-for="side in cubeConfig"
               :key="side.id"
               :data="side"
+              :active-side="currentSide"
             />
           </div>
           <!--button

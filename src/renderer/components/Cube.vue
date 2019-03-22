@@ -100,6 +100,9 @@
 </script>
 
 <style lang="scss">
+  $yellow: #FDCF1A;
+  $orange: #EA282E;
+
   .cube-wrapper {
     width: 300px;
     height: 300px;
@@ -163,23 +166,18 @@
         justify-content: space-around;
         width: 300px;
         height: 300px;
-        border: 1px solid #FFF;
-        background: rgba(12, 20, 31, .7);
+        border: 1px solid $orange;
+        background: rgba(246, 249, 252, 1);
         transition: background 1s;
 
         .label {
-          color: white;
-          font-size: 3em;
-          transition: text-shadow 1.5s;
-          text-shadow:  0 0px 0 hsl(174, 5%, 80%),
-                        0 0px 0 hsl(174, 5%, 75%),
-                        0 0px 0 hsl(174, 5%, 70%),
-                        0 0 0px rgba(0, 0, 0, 0),
-                        0 0px 0px rgba(0, 0, 0, 0),
-                        0 0px 0px rgba(0, 0, 0, 0),
-                        0 0px 0px rgba(0, 0, 0, 0),
-                        0 0px 0px rgba(0, 0, 0, 0),
-                        0 0px 0px rgba(0, 0, 0, 0);
+          color: rgba(0, 0, 0, .1);
+          font-size: 8em;
+          text-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+          padding: 0 50px;
+          background: rgba(234, 40, 46, 0);
+          border-radius: 50%;
+          transition: text-shadow .5s, color .5s, background .5s;
         }
 
         &.front {
@@ -212,19 +210,13 @@
         }
 
         &.active-side{
-          background: rgba(12, 20, 31, .2);
+          background: rgba(234, 40, 46, .7);
           transition: background 1s;
-          .label{
-            transition: text-shadow 1.5s;
-            text-shadow:  0 1px 0 hsl(174,5%,80%),
-                          0 2px 0 hsl(174,5%,75%),
-                          0 3px 0 hsl(174,5%,70%),
-                          0 0 5px rgba(0,0,0,.05),
-                          0 1px 3px rgba(0,0,0,.2),
-                          0 3px 5px rgba(0,0,0,.2),
-                          0 5px 10px rgba(0,0,0,.2),
-                          0 10px 10px rgba(0,0,0,.2),
-                          0 20px 20px rgba(0,0,0,.3);
+          .label {
+            color: rgba(255, 255, 255, 1);
+            // background: rgba(234, 40, 46, 1);
+            text-shadow:  0 3px 10px rgba(0, 0, 0, .4);
+            transition: text-shadow 1.5s, color .5s, background .5s;
           }
         }
       }    

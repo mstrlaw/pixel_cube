@@ -1,5 +1,8 @@
 <template>
-  <div class="cube-side">
+  <div
+    :class="{ 'active': activeSide === data.face }"
+    class="cube-side"
+  >
     <div class="number">
       {{ data.face }}
     </div>
@@ -37,6 +40,10 @@
         default: () => {
           return {}
         }
+      },
+      activeSide: {
+        type: Number,
+        default: 0
       }
     },
     data() {
@@ -71,6 +78,12 @@
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+
+    &.active{
+      .number{
+        background: rgba(234, 40, 46, 0.3);
+      }
+    }
 
     .number,
     .label,
