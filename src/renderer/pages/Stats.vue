@@ -1,6 +1,5 @@
 <template>
   <div id="dashboard">
-    <Navigation />
     <div class="container">
       <div class="columns">
         <div class="column">
@@ -20,13 +19,11 @@
 
 <script>
   import LineChart from '../components/LineChart'
-  import Navigation from '../components/Navigation'
   import bluetooth from 'node-bluetooth'
 
   export default {
     name: 'Dashboard',
     components: {
-      Navigation,
       LineChart
     },
     data() {
@@ -76,18 +73,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
-
-  body, html{
-    margin: 0;
-    padding: 0;
-  }
-
-  .container{
-    width: 80vw;
-    height: 80vh;
-    margin: 0 auto;
-  }
-</style>
