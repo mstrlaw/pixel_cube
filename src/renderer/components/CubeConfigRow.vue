@@ -6,26 +6,37 @@
     <div class="number" >
       {{ data.face }}
     </div>
-    <input
-      type="text"
-      v-model="locaValue"
-      class="label"
-    >
+    
+    <div class="input-wrapper">
+      <input
+        type="text"
+        v-model="locaValue"
+        class="label"
+        @focus="showSave"
+        @blur="hideSave"
+      >
+      <div class="controls">
+        <a
+          v-if="showSaveLabel"
+          href="#"
+          @click.prevent="changeSideLabel"
+        >
+          <ContentSave />
+        </a>
+      </div>
+
+    </div>
     <div class="time">
       {{ formatTime(data.currentTime) }}
     </div>
-    <div class="controls">
-      <a
-        href="#"
-        @click.prevent="changeSideLabel"
-      >
-        <ContentSave />
-      </a>
+    <div class="options">
+      <ConfigDropdown :data="data" />
     </div>
   </div>
 </template>
 
 <script>
+  import ConfigDropdown from './ConfigDropdown'
   import ContentSave from 'vue-material-design-icons/ContentSave.vue'
   import moment from 'moment'
 
@@ -33,6 +44,7 @@
     name: 'CubeConfigRow',
     components: {
       ContentSave,
+      ConfigDropdown
     },
     props: {
       data: {
@@ -48,10 +60,19 @@
     },
     data() {
       return {
-        locaValue: this.$store.getters.cubeSideConfig(this.data.id)
+        locaValue: this.$store.getters.cubeSideConfig(this.data.id),
+        showSaveLabel: false
       }
     },
     methods: {
+      showSave(){
+        this.showSaveLabel = true
+      },
+      hideSave(){
+        setTimeout( () => {
+          this.showSaveLabel = false
+        }, 250)
+      },
       changeSideLabel() {
         this.$store.dispatch('setCubeLabel', { sideId: this.data.id, label: this.locaValue })
       },
@@ -148,10 +169,18 @@
       }
     }
 
+    &:hover{
+      .options{
+        opacity: 1;
+        transition: opacity .1s;
+      }
+    }
+
     .number,
     .label,
     .time,
-    .controls{
+    .controls,
+    .options{
       height: 40px;
     }
 
@@ -172,15 +201,36 @@
       transition: background .5s;
     }
 
+    .input-wrapper{
+      position: relative;
+      
+      .controls{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        line-height: 0;
+        border: none;
+        top: 0;
+        right: 0;
+        > * {
+          color: #333;
+        }
+      }
+    }
+
     .time{
       width: 100px;
       font-size: 1.2em;
-      border-right: 0;
-    }
-
-    .controls{      
+      border-top: 1px solid #DDD;
+      border-bottom: 1px solid #DDD;
       border-top-right-radius: 4px;
       border-bottom-right-radius: 4px;
+    }
+
+    .options{
+      font-size: 1.2em;
+      opacity: 0;
+      transition: opacity .5s;
       > * {
         color: #333;
       }

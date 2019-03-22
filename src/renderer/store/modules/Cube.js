@@ -57,6 +57,16 @@ const mutations = {
     if (i >= 0) {
       let tmp = state.cubeConfig
       tmp[i].labelValue = label
+      state.cubeConfig = JSON.parse(JSON.stringify(tmp))
+    }
+  },
+  RESET_SIDE_TIME (state, sideId) {
+    let i = state.cubeConfig.findIndex( side => {
+      return side.id === sideId
+    })
+
+    if (i >= 0) {
+      let tmp = state.cubeConfig
       tmp[i].currentTime = 0
       state.cubeConfig = JSON.parse(JSON.stringify(tmp))
     }
@@ -83,6 +93,9 @@ const mutations = {
 const actions = {
   setCubeLabel ({ commit }, { sideId='', label='' }) {
     commit('UPDATE_SIDE_LABEL', { sideId:sideId, label:label })
+  },
+  resetCubeTime({ commit }, sideId ) {
+    commit('RESET_SIDE_TIME', sideId)
   },
   increaseSideTime ({ commit }, faceId) {
     commit('UPDATE_SIDE_TIME', faceId)
