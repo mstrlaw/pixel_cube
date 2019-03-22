@@ -1,9 +1,9 @@
 <template>
   <div
-    :class="{ 'active': activeSide === data.face }"
+    :class="[ data.id ,{ 'active': activeSide === data.face } ]"
     class="cube-side"
   >
-    <div class="number">
+    <div class="number" >
       {{ data.face }}
     </div>
     <input
@@ -11,6 +11,9 @@
       v-model="locaValue"
       class="label"
     >
+    <div class="time">
+      {{ formatTime(data.currentTime) }}
+    </div>
     <div class="controls">
       <a
         href="#"
@@ -18,9 +21,6 @@
       >
         <ContentSave />
       </a>
-    </div>
-    <div class="time">
-      {{ formatTime(data.currentTime) }}
     </div>
   </div>
 </template>
@@ -79,9 +79,72 @@
     align-items: center;
     margin-bottom: 5px;
 
+    &.side-1{
+      .number{
+        background: rgba(76, 175, 80, .2); //#4CAF50; // Green
+      }
+    }
+    &.side-2{
+      .number{
+        background: rgba(244, 67, 54, .2); //#F44336; // Red
+      }
+    }
+    &.side-3{
+      .number{
+        background: rgba(255, 235, 59, .2); //#FFEB3B; // Yellow
+      }
+    }
+    &.side-4{
+      .number{
+        background: rgba(255, 152, 0, .2); //#FF9800; // Orange
+      }
+    }
+    &.side-5{
+      .number{
+        background: rgba(33, 150, 243, .2); //#2196F3; // Blue
+      }
+    }
+    &.side-6{
+      .number{
+        background: rgba(103, 58, 183, .2); //#673AB7; // Purple
+      }
+    }
+
     &.active{
       .number{
-        background: rgba(234, 40, 46, 0.3);
+        transition: background .5s, color .5s;
+      }
+      &.side-1{
+        .number{
+          background: rgba(76, 175, 80, .8); //#4CAF50; // Green
+          color: white;
+        }
+      }
+      &.side-2{
+        .number{
+          background: rgba(244, 67, 54, .8); //#F44336; // Red
+        }
+      }
+      &.side-3{
+        .number{
+          background: rgba(255, 235, 59, .8); //#FFEB3B; // Yellow
+        }
+      }
+      &.side-4{
+        .number{
+          background: rgba(255, 152, 0, .8); //#FF9800; // Orange
+        }
+      }
+      &.side-5{
+        .number{
+          background: rgba(33, 150, 243, .8); //#2196F3; // Blue
+        }
+      }
+      &.side-6{
+        .number{
+          background: rgba(103, 58, 183, .8); //#673AB7; // Purple
+          color: white;
+        }
       }
     }
 
@@ -106,16 +169,18 @@
       font-size: 1.5em;
       border-top-left-radius: 4px;
       border-bottom-left-radius: 4px;
+      transition: background .5s;
     }
 
     .time{
+      width: 100px;
       font-size: 1.2em;
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
+      border-right: 0;
     }
 
     .controls{      
-      border-right: 0;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
       > * {
         color: #333;
       }

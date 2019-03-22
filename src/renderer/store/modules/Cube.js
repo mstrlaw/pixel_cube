@@ -1,42 +1,48 @@
 const state = () => {
   return {
-    registering: false,
+    registering: true,
     cubeConfig: [
       {
         id: 'side-1',
         face: 1,
         labelValue: '',
-        currentTime: 0
+        currentTime: 0,
+        color: '#4CAF50', // Green
       },
       {
         id: 'side-2',
         face: 2,
         labelValue: '',
-        currentTime: 0
+        currentTime: 0,
+        color: '#F44336', // Red
       },
       {
         id: 'side-3',
         face: 3,
         labelValue: '',
-        currentTime: 0
+        currentTime: 0,
+        color: '#FDCF1A', // Yellow
       },
       {
         id: 'side-4',
         face: 4,
         labelValue: '',
-        currentTime: 0
+        currentTime: 0,
+        color: '#EA282E', // Orange
       },
       {
         id: 'side-5',
         face: 5,
         labelValue: '',
-        currentTime: 0
+        currentTime: 0,
+        color: '#00a6f1', // Blue
       },
       {
         id: 'side-6',
         face: 6,
         labelValue: '',
-        currentTime: 0
+        currentTime: 0,
+        color: '#673ab7', // Purple
       },
     ]
   }

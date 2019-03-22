@@ -99,11 +99,16 @@
             } else {
               this.$store.dispatch('setConnStatus', 'connected')
 
+              connection.write(new Buffer('s', 'utf-8'), (data, buffer) => {
+                console.log('wrote')
+              })
+
               connection.on('data', (buffer) => {
                 let receivedSide = buffer.toString().trim()
 
                 if (receivedSide.length > 0) {
                   if (this.isRegistering) {
+                    console.log('change side')
                     this.currentSide = parseInt(receivedSide)
                   }
                 }
@@ -140,6 +145,44 @@
       
       background-color: #F6F9FC;
       z-index: -20;
+      transition: background .5s;
+    }
+
+    &.side-1{
+      &:before{
+        background: rgba(76, 175, 80, .2); //#4CAF50; // Green
+        transition: background .5s;
+      }
+    }
+    &.side-2{
+      &:before{
+        background: rgba(244, 67, 54, .2); //#F44336; // Red
+        transition: background .5s;
+      }
+    }
+    &.side-3{
+      &:before{
+        background: rgba(255, 235, 59, .2); //#FFEB3B; // Yellow
+        transition: background .5s;
+      }
+    }
+    &.side-4{
+      &:before{
+        background: rgba(255, 152, 0, .2); //#FF9800; // Orange
+        transition: background .5s;
+      }
+    }
+    &.side-5{
+      &:before{
+        background: rgba(33, 150, 243, .2); //#2196F3; // Blue
+        transition: background .5s;
+      }
+    }
+    &.side-6{
+      &:before{
+        background: rgba(103, 58, 183, .2); //#673AB7; // Purple
+        transition: background .5s;
+      }
     }
   }
 

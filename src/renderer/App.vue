@@ -7,13 +7,26 @@
       <div
         v-if="isConnected"
       >
-        <a
-          href="#"
-          v-text="isRegistering ? 'Stop tracking' : 'Start tracking'"
-          class="register-cta"
-          @click.prevent="toggleRegistering"
-        />
-
+        <div
+          class="toggle-wrapper"
+          v-tooltip="{
+            content: `<small>${ isRegistering ? 'Click to stop registering' : 'Click to start registering your time' }</small>`, 
+            placement: 'left',
+            html: true,
+          }"
+        >
+          <input
+            :checked="isRegistering ? true : false"
+            class="toggle toggle-light"
+            id="cb1"
+            type="checkbox"
+            @change="toggleRegistering"
+          />
+          <label
+            class="toggle-btn"
+            for="cb1"
+          />
+        </div>
       </div>
       <div class="status">
         <div
@@ -66,11 +79,14 @@
 </script>
 
 <style lang="scss">
-  $green: #4CAF50;
-  $red: #F44336;
-  $yellow: #FDCF1A;
-  $gray: #607D8B;
-  $gray-light: #B0BEC5;
+  $green:         #4CAF50;
+  $red:           #F44336;
+  $yellow:        #FDCF1A;
+  $orange:        #EA282E;
+  $gray:          #607D8B;
+  $blue:          #00A6F1;
+  $purple:        #673AB7;
+  $gray-light:    #B0BEC5;
   $gray-lightest: #ECEFF1;
 
   .status-wrapper{
@@ -145,6 +161,77 @@
     }
   }
 
+  .toggle-wrapper{
+    margin-right: 15px;
+    padding-left: 5px;
+  }
+
+  .toggle {
+    display: none;
+    
+    &,
+    &:after,
+    &:before,
+    & *,
+    & *:after,
+    & *:before,
+    & + .toggle-btn {
+      box-sizing: border-box;
+      &::selection {
+        background: none;
+      }
+    }
+    
+    + .toggle-btn {
+      outline: 0;
+      display: block;
+      width: 4em;
+      height: 2em;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      &:after,
+      &:before {
+        position: relative;
+        display: block;
+        content: "";
+        width: 50%;
+        height: 100%;
+      }
+      
+      &:after {
+        left: 0;
+      }
+      
+      &:before {
+        display: none;
+      }
+    }
+    
+    &:checked + .toggle-btn:after {
+      left: 50%;
+    }
+  }
+
+  // themes
+  .toggle-light {
+    + .toggle-btn {
+      background: lighten($orange, 30%);
+      border-radius: 2em;
+      padding: 2px;
+      transition: all .4s ease;
+      &:after {
+        border-radius: 50%;
+        background: #fff;
+        transition: all .2s ease;
+      }
+    }
+    
+    &:checked + .toggle-btn {
+      background: $green;
+    }
+  }
+
   .loader {
     margin-right: 10px;
     color: transparent;
@@ -160,6 +247,182 @@
     animation: spinAround 500ms infinite linear;
     -webkit-animation: spinAround 500ms infinite linear;
   }
+
+  .tooltip {
+    display: block !important;
+    z-index: 10000;
+    border-radius: .125rem;
+
+    .tooltip-inner {
+      background: #F6F9FC;
+      color: #000;
+      padding: .5em 1rem;
+      font-size: 1.125em;
+      border-radius: 4px;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.16), 3px 0px 6px rgba(0,0,0,0.05);
+
+      .list{
+        padding-left: 15px;
+      }
+    }
+
+    .tooltip-arrow {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      position: absolute;
+      margin: 5px;
+      border-color: #F6F9FC;
+      z-index: 1;
+
+      &:before, &:after{
+        content: '';
+        display: block;
+        width: 1px;
+        height: 6px;
+        background: #F6F9FC;
+        position: absolute;
+        transform: skew(-40deg);
+      }
+
+      &:after{
+        transform: skew(40deg);
+      }
+    }
+
+    &[x-placement^="top"] {
+      margin-bottom: 5px;
+
+      .tooltip-arrow {
+        border-width: 5px 5px 0 5px;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
+        border-bottom-color: transparent !important;
+        bottom: -5px;
+        left: calc(50% - 5px);
+        margin-top: 0;
+        margin-bottom: 0;
+        
+        &:before, &:after{
+          top: -5px;
+          left: 2px;
+          transform: skew(-40deg);
+        }
+
+        &:after{
+          left: -3px;
+          transform: skew(40deg);
+        }
+      }
+    }
+
+    &[x-placement^="bottom"] {
+      margin-top: 5px;
+
+      .tooltip-arrow {
+        border-width: 0 5px 5px 5px;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
+        border-top-color: transparent !important;
+        top: -5px;
+        left: calc(50% - 5px);
+        margin-top: 0;
+        margin-bottom: 0;
+
+        &:before, &:after{
+          top: -2px;
+          left: 2px;
+          transform: skew(40deg);
+        }
+
+        &:after{
+          left: -3px;
+          transform: skew(-40deg);
+        }
+      }
+    }
+
+    &[x-placement^="right"] {
+      margin-left: 5px;
+
+      .tooltip-arrow {
+        border-width: 5px 5px 5px 0;
+        border-left-color: transparent !important;
+        border-top-color: transparent !important;
+        border-bottom-color: transparent !important;
+        left: -5px;
+        top: calc(50% - 5px);
+        margin-left: 0;
+        margin-right: 0;
+
+        &:before, &:after{
+          top: 0px;
+          left: 2px;
+          transform: skew(40deg);
+        }
+
+        &:after{
+          top: -6px;
+          transform: skew(-40deg);
+        }
+      }
+    }
+
+    &[x-placement^="left"] {
+      margin-right: 5px;
+
+      .tooltip-arrow {
+        border-width: 5px 0 5px 5px;
+        border-top-color: transparent !important;
+        border-right-color: transparent !important;
+        border-bottom-color: transparent !important;
+        right: -5px;
+        top: calc(50% - 5px);
+        margin-left: 0;
+        margin-right: 0;
+
+        &:before, &:after{
+          top: 0px;
+          left: -3px;
+          transform: skew(-40deg);
+        }
+
+        &:after{
+          top: -6px;
+          transform: skew(40deg);
+        }
+      }
+    }
+
+    &.popover {
+      $color: #f9f9f9;
+
+      .popover-inner {
+        background: $color;
+        color: black;
+        padding: 24px;
+        border-radius: 5px;
+        box-shadow: 0 5px 30px rgba(black, .1);
+      }
+
+      .popover-arrow {
+        border-color: $color;
+      }
+    }
+
+    &[aria-hidden='true'] {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity .15s, visibility .15s;
+    }
+
+    &[aria-hidden='false'] {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity .15s;
+    }
+  }
+
 
   @-webkit-keyframes spinAround {
     from {

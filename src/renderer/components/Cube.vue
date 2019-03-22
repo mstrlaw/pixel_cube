@@ -166,7 +166,7 @@
         justify-content: space-around;
         width: 300px;
         height: 300px;
-        border: 1px solid $orange;
+        border: 1px solid #777;
         background: rgba(246, 249, 252, 1);
         transition: background 1s;
 
@@ -210,8 +210,27 @@
         }
 
         &.active-side{
-          background: rgba(234, 40, 46, .7);
           transition: background 1s;
+
+          &.front{
+            background: rgba(76, 175, 80, .8); //#4CAF50; // Green
+          }
+          &.right{
+            background: rgba(244, 67, 54, .8); //#F44336; // Red
+          }
+          &.left{
+            background: rgba(255, 152, 0, .8); //#FF9800; // Orange
+          }
+          &.top{
+            background: rgba(103, 58, 183, .8); //#673AB7; // Purple
+          }
+          &.bottom{
+            background: rgba(33, 150, 243, .8); //#2196F3; // Blue
+          }
+          &.back{
+            background: rgba(255, 235, 59, .8); //#FFEB3B; // Yellow
+          }
+
           .label {
             color: rgba(255, 255, 255, 1);
             // background: rgba(234, 40, 46, 1);
