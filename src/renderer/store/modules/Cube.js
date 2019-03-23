@@ -7,6 +7,7 @@ const state = () => {
         face: 1,
         labelValue: '',
         currentTime: 0,
+        isProductive: true,
         color: '#4CAF50', // Green
       },
       {
@@ -14,6 +15,7 @@ const state = () => {
         face: 2,
         labelValue: '',
         currentTime: 0,
+        isProductive: true,
         color: '#F44336', // Red
       },
       {
@@ -21,6 +23,7 @@ const state = () => {
         face: 3,
         labelValue: '',
         currentTime: 0,
+        isProductive: true,
         color: '#FDCF1A', // Yellow
       },
       {
@@ -28,6 +31,7 @@ const state = () => {
         face: 4,
         labelValue: '',
         currentTime: 0,
+        isProductive: true,
         color: '#EA282E', // Orange
       },
       {
@@ -35,6 +39,7 @@ const state = () => {
         face: 5,
         labelValue: '',
         currentTime: 0,
+        isProductive: true,
         color: '#00a6f1', // Blue
       },
       {
@@ -42,6 +47,7 @@ const state = () => {
         face: 6,
         labelValue: '',
         currentTime: 0,
+        isProductive: true,
         color: '#673ab7', // Purple
       },
     ]
@@ -71,6 +77,17 @@ const mutations = {
       state.cubeConfig = JSON.parse(JSON.stringify(tmp))
     }
   },
+  UPDATE_SIDE_PRODUCTIVITY (state, { sideId='', value=true }) {
+    let i = state.cubeConfig.findIndex( side => {
+      return side.id === sideId
+    })
+
+    if (i >= 0) {
+      let tmp = state.cubeConfig
+      tmp[i].isProductive = value
+      state.cubeConfig = JSON.parse(JSON.stringify(tmp))
+    }
+  },
   UPDATE_SIDE_TIME (state, faceId) {
     let i = state.cubeConfig.findIndex( side => {
       return side.face === faceId
@@ -96,6 +113,9 @@ const actions = {
   },
   resetCubeTime({ commit }, sideId ) {
     commit('RESET_SIDE_TIME', sideId)
+  },
+  setCubeProductivity ({ commit }, { sideId='', value=false }) {
+    commit('UPDATE_SIDE_PRODUCTIVITY', { sideId:sideId, value: value })
   },
   increaseSideTime ({ commit }, faceId) {
     commit('UPDATE_SIDE_TIME', faceId)

@@ -62,11 +62,15 @@
   $red:           #F44336;
   $yellow:        #FDCF1A;
   $orange:        #EA282E;
-  $gray:          #607D8B;
   $blue:          #00A6F1;
   $purple:        #673AB7;
+  $gray:          #607D8B;
   $gray-light:    #B0BEC5;
   $gray-lightest: #ECEFF1;
+
+  .material-design-icon{
+    line-height: 0;
+  }
 
   .container{
     margin: 0 auto;
@@ -76,7 +80,7 @@
       position: fixed;
       width: 100%;
       height: 120vh;
-      top: 10vh;
+      top: 15vh;
       -webkit-transform: skewY(12deg);
       transform: skewY(12deg);
       
@@ -209,7 +213,8 @@
     &.is-small{
       + .toggle-btn {
         width: 2em;
-        height: 1.2em;
+        height: 1.1em;
+        background: $gray-light;
       }
     }
     
@@ -389,13 +394,83 @@
     -webkit-animation: spinAround 500ms infinite linear;
   }
 
+  /* TABLE */
+
+  .table {
+    background-color: white;
+    color: #363636;
+  }
+
+  .table td,
+  .table th {
+    border: 1px solid #dbdbdb;
+    border-width: 0 0 1px;
+    padding: 0.5em 0.75em;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .table tbody {
+    background-color: transparent;
+  }
+
+  .table tbody tr:last-child td,
+  .table tbody tr:last-child th {
+    border-bottom-width: 0;
+  }
+
+  .table.is-bordered td,
+  .table.is-bordered th {
+    border-width: 1px;
+  }
+
+  .table.is-bordered tr:last-child td,
+  .table.is-bordered tr:last-child th {
+    border-bottom-width: 1px;
+  }
+
+  .table.is-fullwidth {
+    width: 100%;
+  }
+
+  .table.is-hoverable tbody tr:not(.is-selected):hover {
+    background-color: #fafafa;
+  }
+
+  .table.is-hoverable.is-striped tbody tr:not(.is-selected):hover {
+    background-color: #fafafa;
+  }
+
+  .table.is-hoverable.is-striped tbody tr:not(.is-selected):hover:nth-child(even) {
+    background-color: whitesmoke;
+  }
+
+  .table.is-narrow td,
+  .table.is-narrow th {
+    padding: 0.25em 0.5em;
+  }
+
+  .table.is-striped tbody tr:not(.is-selected):nth-child(even) {
+    background-color: #fafafa;
+  }
+
+  .table-container {
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+  }
+
+
+  /* TOOLTIP */
+
   .tooltip {
     display: block !important;
     z-index: 10000;
     border-radius: .125rem;
 
     .tooltip-inner {
-      background: #F6F9FC;
+      background: lighten(#ECEFF1, 10%);
       color: #000;
       padding: .5em 1rem;
       font-size: 1.125em;

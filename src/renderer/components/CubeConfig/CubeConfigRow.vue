@@ -14,38 +14,58 @@
         class="label"
         placeholder="No label"
         @focus="showSave"
-        @blur="hideSave"
+        @blur="changeSideLabel"
       >
-      <div class="controls">
-        <a
-          v-if="showSaveLabel"
-          href="#"
-          @click.prevent="changeSideLabel"
-        >
-          <ContentSave />
-        </a>
-      </div>
-
     </div>
     <div class="time">
       {{ formatTime(data.currentTime) }}
     </div>
     <div class="options">
-      <ConfigDropdown :data="data" />
+      <a
+        href="#"
+        @click.prevent="clearTime"
+      >
+        <BackupRestore
+          v-tooltip="{
+            content: `<small>Reset time</small>`, 
+            placement: 'top',
+            html: true,
+          }"
+        />
+      </a>
+
+      <div
+        class="toggle-wrapper"
+        v-tooltip="{
+          content: `<small>Change this activity's productivity</small>`, 
+          placement: 'top',
+          html: true,
+        }"
+      >
+        <input
+          :id="`cb-${ data.id }`"
+          :checked="data.isProductive ? true : false"
+          class="toggle is-small"
+          type="checkbox"
+          @change.prevent="setProductiveSide"
+        />
+        <label
+          class="toggle-btn"
+          :for="`cb-${ data.id }`"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  import ConfigDropdown from './ConfigDropdown'
-  import ContentSave from 'vue-material-design-icons/ContentSave.vue'
+  import BackupRestore from 'vue-material-design-icons/BackupRestore.vue'
   import moment from 'moment'
 
   export default {
     name: 'CubeConfigRow',
     components: {
-      ContentSave,
-      ConfigDropdown
+      BackupRestore,
     },
     props: {
       data: {
@@ -77,6 +97,12 @@
       changeSideLabel() {
         this.$store.dispatch('setCubeLabel', { sideId: this.data.id, label: this.locaValue })
       },
+      clearTime() {
+        this.$store.dispatch('resetCubeTime', this.data.id)
+      },
+      setProductiveSide() {
+        this.$store.dispatch('setCubeProductivity', { sideId: this.data.id, value: !this.data.isProductive })
+      },
       formatTime(time) {
         let t = moment.duration(time)
 
@@ -87,9 +113,8 @@
         } else if (t.asSeconds() >= 1) {
           return `${ Math.floor(t.seconds()) }s`
         } else {
-          return `${ Math.floor(t.seconds()) }s`
+          return '-'
         }
-
       }
     }
   }
@@ -185,14 +210,12 @@
     .number,
     .label,
     .time,
-    .controls,
     .options{
       height: 40px;
     }
 
     .number,
-    .time,
-    .controls{
+    .time{
       display: flex;
       align-items: center;
       justify-content: space-around;
@@ -208,23 +231,6 @@
       transition: background .5s, color .5s;
     }
 
-    .input-wrapper{
-      position: relative;
-      
-      .controls{
-        position: absolute;
-        display: flex;
-        align-items: center;
-        line-height: 0;
-        border: none;
-        top: 0;
-        right: 0;
-        > * {
-          color: #333;
-        }
-      }
-    }
-
     .time{
       width: 100px;
       font-size: 1.2em;
@@ -236,11 +242,23 @@
     }
 
     .options{
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
       font-size: 1.2em;
+      margin-left: 15px;
       opacity: 0;
       transition: opacity .5s;
-      > * {
+      a {
         color: #333;
+        line-height: 0;
+        padding: 2px;
+        border-radius: 50%;
+        transition: background .5s;
+        &:hover{
+          background: #EEE;
+          transition: background .5s;
+        }
       }
     }
 
