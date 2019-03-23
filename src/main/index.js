@@ -21,7 +21,7 @@ function createWindow () {
     height: 800,
     useContentSize: true,
     width: 1080,
-    icon: require('path').join(__dirname, 'assets/icons/png/64x64.png')
+    icon: require('path').join(__dirname, '/icons/ube_logo.icns')
     // frame: false
   })
 
