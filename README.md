@@ -23,12 +23,12 @@ The Cube's hardware:
 Software:
 - Electron & VueJs, using [electron-vue](https://github.com/SimulatedGREG/electron-vue)
 
-
 ToDo:
 
-- [ ] Finish proper 3D casing models for printing
-- [ ] Walk-through on cube assembly
 - [ ] Better Readme
 - [ ] Create project documentation (using [VuePress](https://vuepress.vuejs.org/))
+- [ ] Prep up project to be adopted by OS/DIY/IOT community 
+- [ ] Finish proper 3D casing models for printing
+- [ ] Walk-through on cube assembly
 - [ ] Add tests to code
 - [ ] Fix known bugs
