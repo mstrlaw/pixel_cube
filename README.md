@@ -6,7 +6,7 @@
 
 ![Pixel Cube](https://github.com/mstrlaw/pixel_cube/blob/master/static/cube_optimized.gif?raw=true)
 
-The [https://pixelcube.xyz/](PixelCube) is the result of [Pixels Camp 2019](https://pixels.camp/) 48h hackathon.
+The [PixelCube](https://pixelcube.xyz/) is the result of [Pixels Camp 2019](https://pixels.camp/) 48h hackathon.
 
 Much to the likes TimeFlip or Timeular, the concept is that you have a physical device (the cube) which you can flip and it'll track the time of the face upward. We wanted to create a project that anyone could build the cube at home and use it.
 
