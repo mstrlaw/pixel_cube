@@ -28,8 +28,14 @@
           <p>Visit project page at 
             <a
               href="#"
-              @click.prevent="visitWebsite"
-            >pixelcube.xyz</a>
+              @click.prevent="visitWebsite('https://pixelcube.xyz')"
+            >https://pixelcube.xyz</a>
+          </p>
+          <p>Get the Code on
+            <a
+              href="#"
+              @click.prevent="visitWebsite('https://github.com/mstrlaw/pixel_cube')"
+            >GitHub</a>
           </p>
         </div>
         <div class="panel">
@@ -78,8 +84,8 @@
       })
     },
     methods: {
-      visitWebsite() {
-        this.$electron.shell.openExternal('https://www.google.com')
+      visitWebsite(link) {
+        this.$electron.shell.openExternal(link)
       }
     }
   }
