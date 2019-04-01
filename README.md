@@ -6,6 +6,8 @@
 
 ![Pixel Cube](https://github.com/mstrlaw/pixel_cube/blob/master/static/cube_optimized.gif?raw=true)
 
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com)
+
 The [PixelCube](https://pixelcube.xyz/) is the result of [Pixels Camp 2019](https://pixels.camp/) 48h hackathon.
 
 Much to the likes TimeFlip or Timeular, the concept is that you have a physical device (the cube) which you can flip and it'll track the time of the face upward. We wanted to create a project that anyone could build the cube at home and use it.
