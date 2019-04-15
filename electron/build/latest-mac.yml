@@ -1,0 +1,12 @@
+version: 0.0.2
+files:
+  - url: pixelcube-0.0.2-mac.zip
+    sha512: yBNrGHz6TKV0LB9nuVWRmxw8IKLxoTENlJ80mD3lUy3Ks4QR94ufKQMgfBF5QiABWn7+JWk10HaNDZ8FEb6n4w==
+    size: 50595874
+    blockMapSize: 54517
+  - url: pixelcube-0.0.2.dmg
+    sha512: gYwN0RBie9kD0kaFzUIUA+C9wsMPNH9YvvOu/2+/h/WcKmvOf77baat4SZ2eICTWWagyfs5eB7PYqPJ9gThZBw==
+    size: 52340474
+path: pixelcube-0.0.2-mac.zip
+sha512: yBNrGHz6TKV0LB9nuVWRmxw8IKLxoTENlJ80mD3lUy3Ks4QR94ufKQMgfBF5QiABWn7+JWk10HaNDZ8FEb6n4w==
+releaseDate: '2019-03-23T09:33:01.305Z'
