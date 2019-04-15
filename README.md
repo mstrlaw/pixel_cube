@@ -4,7 +4,7 @@
 
 ###### (Note: this is a WIP project and it's maintenance/evolution is done in accordance to the dev's available time).
 
-![Pixel Cube](https://github.com/mstrlaw/pixel_cube/blob/master/static/cube_optimized.gif?raw=true)
+![Pixel Cube](https://github.com/mstrlaw/pixel_cube/blob/master/assets/cube_optimized.gif?raw=true)
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com)
 
