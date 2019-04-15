@@ -39,13 +39,9 @@ npm i sharp
 ```
 
 ### Building
-The build is done using [electron-builder](https://github.com/electron-userland/electron-builder). All builds can be found within the _build_ folder.
+The build can be done using [electron-builder](https://github.com/electron-userland/electron-builder) or [electron-packager](https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-electron-packager.html) All builds can be found within the _build_ folder.
 
-To build for a specific platform, run `npm run build:<platform>` where platform can be one of `darwin`, `mas`, `linux` or `win32`. For instance, building for darwin (macOS):
-
-`npm run build:darwin`
-
-More info [here](https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-electron-builder.html)
+Check [here](https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-electron-builder.html) for detailed build steps depending on which package you go for.
 
 
 
